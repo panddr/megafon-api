@@ -1,0 +1,45 @@
+@import "mixins";
+
+.grabr-switcher {
+  align-items: stretch;
+  display: flex;
+
+  border: 1px solid $color-main;
+  margin-bottom: $grid/2;
+
+  @include respond-to(small) {
+    margin-bottom: $grid;
+  }
+
+  > label {
+    align-items: stretch;
+    display: flex;
+
+    width: 50%;
+
+    text-align: center;
+
+    > input {
+      display: none;
+    }
+
+    > span {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      flex: 1;
+
+      padding: $grid/2 $grid;
+
+      transition: background $transition-time $base-transition-style, color $transition-time $base-transition-style;
+
+      cursor: pointer;
+      text-align: center;
+    }
+
+    > input:checked + span {
+      background: white;
+      color: $color-accent;
+    }
+  }
+}

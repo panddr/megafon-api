@@ -1,0 +1,29 @@
+@import "mixins";
+
+.portfolio-header {
+  position: absolute;
+  top: 0; left: 0;
+
+  background: white;
+  border-bottom: 1px solid $color-main;
+  margin-bottom: $grid*2;
+  padding: $grid/2 $grid;
+  width: 100%;
+
+  > .portfolio-links {
+    display: flex;
+
+    h1 {
+      margin-right: $grid;
+      width: 50%;
+    }
+
+    a {
+      text-decoration: underline;
+
+      &.active {
+        text-decoration: none;
+      }
+    }
+  }
+}

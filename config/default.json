@@ -1,0 +1,12 @@
+{
+  "rethinkdb": {
+    "host": "localhost",
+    "port": 28015,
+    "db": "pulse"
+  },
+  "express": {
+    "host": "192.168.0.100",
+    "port": 3000
+  },
+  "buildDirectory": "build"
+}

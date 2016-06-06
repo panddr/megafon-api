@@ -1,0 +1,13 @@
+@import "mixins";
+
+.project-container {
+  padding: $grid;
+
+  > .project-info {
+    margin-bottom: $grid*2;
+
+    .description {
+      font-size: 2em;
+    }
+  }
+}

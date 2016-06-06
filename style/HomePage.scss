@@ -1,0 +1,16 @@
+@import "mixins";
+
+.portfolio-homepage {
+  text-align: center;
+
+  .portfolio-links {
+    position: absolute;
+    top: 50%; left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    a {
+      border-bottom: 1px solid $color-main;
+    }
+  }
+}

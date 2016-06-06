@@ -1,0 +1,184 @@
+@import "mixins";
+
+body {
+  font-family: $font-family-basic;
+  text-rendering: optimizeLegibility;
+  -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  margin: 0; padding: 0;
+
+  h1 {
+    @include header-font-size(1em,1.1em,1.2em,2em);
+  }
+
+  h2 {
+    @include header-font-size(1em,1em,1.1em,1.2em);
+  }
+
+  h3 {
+    @include header-font-size(1em,1.2em,1.3em,1.4em);
+  }
+
+  h4 {
+    @include header-font-size(1em,1.1em,1.2em,1.2em);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: $color-main;
+}
+
+ul {
+  list-style: none;
+  list-style-image: none;
+  margin: 0;
+  padding: 0;
+}
+
+.form {
+  img {
+    width: 150px;
+  }
+}
+
+.placeholder {
+  height: 50px;
+  border: 1px solid #111;
+}
+
+form {
+  fieldset {
+    border: 0;
+    padding: 0;
+  }
+}
+
+input:checked {
+  background: black;
+}
+
+.portfolio-container {
+  max-width: 1500px;
+  margin: auto;
+}
+
+.project-container {
+  > ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    > li {
+      width: 33.3%;
+      margin-bottom: $grid*2;
+      padding: 3%;
+
+      &.small {
+        width: 33.3%;
+      }
+
+      &.medium {
+        width: 50%;
+      }
+
+      &.large {
+        width: 100%;
+      }
+
+      > img {
+        width: 100%;
+        margin-bottom: $grid/4;
+      }
+    }
+  }
+}
+
+.portfolio-login {
+  > .overlay {
+
+    background: white;
+    width: 100%;
+    height: 100%;
+
+    > form {
+      max-width: 280px;
+      margin: auto;
+      padding-top: $grid*2;
+    }
+  }
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+  text-indent: $grid*2;
+}
+
+.portfolio-project-list {
+  padding: $grid;
+
+  .bio {
+    font-size: 2em;
+    margin-bottom: $grid*2;
+  }
+
+  > div {
+    > ul {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      > li {
+        width: 25%;
+        padding: 3%;
+
+        img {
+          width: 100%;
+          margin-bottom: $grid/4;
+        }
+      }
+    }
+  }
+}
+
+.portfolio-header {
+  margin-bottom: $grid;
+  width: 100%;
+
+  > .portfolio-links {
+    display: flex;
+
+    h1 {
+      margin-right: $grid;
+      width: 50%;
+
+      &.active a {
+        // text-decoration: none;
+        background: $color-main;
+        color: white;
+      }
+
+      &:last-child {
+        border-left: 1px solid white;
+        padding-left: $grid;
+      }
+    }
+
+    a {
+      border-bottom: 1px solid $color-main;
+
+      &.active {
+        background: $color-main;
+        color: white;
+      }
+    }
+  }
+}

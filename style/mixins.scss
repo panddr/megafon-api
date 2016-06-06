@@ -1,0 +1,49 @@
+@import "variables";
+@import "spinner";
+
+@mixin respond-to($media) {
+  @if $media == small {
+    @media only screen and (min-width: $size-small) { @content; }
+  }
+
+  @else if $media == medium {
+    @media only screen and (min-width: $size-medium) { @content; }
+  }
+
+  @else if $media == large {
+    @media only screen and (min-width: $size-large) { @content; }
+  }
+}
+
+@mixin keyframes( $animationName ) {
+  @-webkit-keyframes $animationName {
+    @content;
+  }
+  @-moz-keyframes $animationName {
+    @content;
+  }
+  @-o-keyframes $animationName {
+    @content;
+  }
+  @keyframes $animationName {
+    @content;
+  }
+  @-ms-keyframes  $animationName {
+    @content;
+  }
+}
+
+@mixin header-font-size($size-normal, $size-small, $size-medium, $size-large) {
+  font-family: $font-family-basic;
+  font-weight: 400;
+  line-height: 1.2;
+  font-style: normal;
+  margin-top: 0;
+  margin-bottom: .4em;
+  font-size: $size-normal;
+  text-transform: uppercase;
+  color: $color-main;
+  @include respond-to(small)  { font-size: $size-small; }
+  @include respond-to(medium) { font-size: $size-medium; }
+  @include respond-to(large)  { font-size: $size-large; }
+}

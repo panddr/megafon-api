@@ -1,0 +1,25 @@
+- hosts: denden
+  gather_facts: yes
+  become: yes
+  tasks:
+  - apt_key: url=https://deb.nodesource.com/gpgkey/nodesource.gpg.key state=present
+  - apt_key: url=http://download.rethinkdb.com/apt/pubkey.gpg state=present
+  - name: add node.js repo key
+    apt_repository: repo='deb https://deb.nodesource.com/node_5.x trusty main' state=present
+  - name: add rethinkdb repo key
+    apt_repository: repo='deb http://download.rethinkdb.com/apt trusty main' state=present
+  - name: update apt caches
+    apt: update_cache=yes
+  - name: install nodejs
+    apt: name=nodejs state=present
+  - name: install retghinkdb
+    apt: name=rethinkdb state=present
+  - name: copy rethinkdb config file
+    copy: src=default.conf dest=/etc/rethinkdb/instances.d/default.conf
+    notify: init rethinkdb
+
+  handlers:
+  - name: init rethinkdb
+    shell: /etc/init.d/rethinkdb start
+  - name: restart rethinkdb
+    service: name=rethinkdb state=restarted
