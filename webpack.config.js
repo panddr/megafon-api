@@ -50,10 +50,10 @@ var moduleLoaders = [
 ];
 
 if (isDev) {
-  output.publicPath = 'http://localhost:3001/';
+  output.publicPath = 'http://192.168.0.101:3001/';
   plugins.push(new webpack.HotModuleReplacementPlugin());
   entryScripts = [
-    'webpack-dev-server/client?http://localhost:3001',
+    'webpack-dev-server/client?http://192.168.0.101:3001',
     'webpack/hot/only-dev-server',
     appEntry
   ];

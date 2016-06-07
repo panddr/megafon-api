@@ -12,9 +12,9 @@ const isDev = (process.env.NODE_ENV !== 'production');
 
 export function handleRender(req, res) {
   console.log(' [x] Request for', req.url);
-  eventService.getEvents()
-  .then(initialEvents => {
-    let initialState = {pulseApp: { events: initialEvents, isLoggedIn: false, userId: 'baseUser'} };
+  eventService.loadState()
+  .then(initialQuizState => {
+    let initialState = {pulseApp: { quizState: initialQuizState[0], isLoggedIn: false, userId: 'baseUser' } };
 
     const store = configureStore(req, initialState);
 

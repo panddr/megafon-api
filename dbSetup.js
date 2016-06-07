@@ -2,8 +2,8 @@ import r from 'rethinkdb';
 import config from 'config';
 
 const rethinkdb = config.get('rethinkdb');
-let DATABASE = rethinkdb.db || 'pulse';
-let TABLES = ['pulses'];
+let DATABASE = rethinkdb.db || 'megafon';
+let TABLES = ['quizes','state'];
 
 r.connect(rethinkdb)
 .then(conn => {

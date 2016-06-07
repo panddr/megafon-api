@@ -41,6 +41,11 @@ ul {
   padding: 0;
 }
 
+.button-reload {
+  position: fixed;
+  top: $grid/2; right: $grid/2;
+}
+
 .form {
   img {
     width: 150px;

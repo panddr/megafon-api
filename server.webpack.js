@@ -6,7 +6,7 @@ var WebpackDevServer = require('webpack-dev-server');
 var config = require('config');
 var webpackConfig = require('./webpack.config');
 
-var host = '192.168.0.100';
+var host = '192.168.0.101';
 var appPort = 3000;
 var devServerPort = 3001;
 

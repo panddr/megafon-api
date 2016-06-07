@@ -4,8 +4,94 @@ import request from 'superagent';
 
 const serverUrl = '';
 const eventsUrl = `${serverUrl}/api/0/events`;
+const stateUrl = `${serverUrl}/api/0/state`;
+const quizesUrl = `${serverUrl}/api/0/quizes`;
+const helpUrl = `${serverUrl}/api/0/help`;
 const imagesUrl = `${serverUrl}/api/0/images`;
 
+//init state
+export function initState() {
+  const quizState = {
+    isAnswering: false,
+    isHelping: false,
+    questions: [],
+    slug: 0
+  }
+
+  return dispatch => {
+    return request
+      .post(stateUrl)
+      .send(quizState)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (!err) {
+          dispatch(initStateSuccess(res.body));
+        }
+      });
+  };
+}
+
+export function initStateSuccess(quizState) {
+  return {
+    type: types.INIT_STATE_SUCCESS,
+    quizState
+  };
+}
+
+
+//start answering
+export function startAnswering(quizState) {
+  return dispatch => {
+    return request
+      .post(quizesUrl)
+      .send(quizState)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (!err) {
+          dispatch(startAnsweringSuccess(res.body));
+        }
+      });
+  };
+}
+
+export function startAnsweringSuccess(quizState) {
+  return {
+    type: types.START_ANSWERING_SUCCESS,
+    quizState
+  };
+}
+
+//helping
+export function startHelping(quizState) {
+  return dispatch => {
+    return request
+      .post(helpUrl)
+      .send(quizState)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (!err) {
+          dispatch(startHelpingSuccess(res.body));
+        }
+      });
+  };
+}
+
+export function startHelpingSuccess(quizState) {
+  return {
+    type: types.START_HELPING_SUCCESS,
+    quizState
+  };
+}
+
+
+
+//answer question
+export function answerQuestion(answeredQuestion) {
+  return {
+    type: types.ANSWER_QUESTION,
+    answeredQuestion
+  };
+}
 
 //login
 

@@ -15,7 +15,7 @@ function connect() {
 export function liveUpdates(io) {
   console.log('Setting up listener...');
   r
-    .table('pulses')
+    .table('state')
     .changes().run((err, cursor) => {
       console.log('Listening for changes...');
       cursor.each((err, change) => {
@@ -27,7 +27,7 @@ export function liveUpdates(io) {
   // connect()
   // .then(conn => {
   //   r
-  //   .table('pulses')
+  //   .table('quizes')
   //   .changes().run(conn, (err, cursor) => {
   //     console.log('Listening for changes...');
   //     cursor.each((err, change) => {
@@ -40,13 +40,13 @@ export function liveUpdates(io) {
 
 export function getEvents() {
   return r
-    .table('pulses')
+    .table('quizes')
     .orderBy(r.desc('created')).run();
 
   // return connect()
   // .then(conn => {
   //   return r
-  //   .table('pulses')
+  //   .table('quizes')
   //   .orderBy(r.desc('created')).run(conn)
   //   .then(cursor => cursor.toArray());
   // });
@@ -56,11 +56,55 @@ export function getEvents() {
 //   return connect()
 //   .then(conn => {
 //     return r
-//     .table('pulses')
+//     .table('quizes')
 //     .get(id).update(event).run(conn)
 //     .then(() => event);
 //   });
 // }
+
+
+export function loadState() {
+  return r
+    .table('state')
+    .getAll(0, {index: 'slug'}).run()
+}
+
+
+export function initState() {
+  const quizState = {
+    isAnswering: false,
+    isHelping: false,
+    questions: [],
+    slug: 0
+  }
+
+  return r.table("state").delete().run()
+  .then(() => {
+    return r
+      .table('state')
+      .insert(quizState).run()
+  })
+  .then(() => {
+    return r
+      .table('state')
+      .getAll(0, {index: 'slug'}).run()
+  })
+}
+
+export function startAnswering(quizState) {
+  return r
+    .table('state')
+    .getAll(0, {index: 'slug'}).update(quizState).run()
+    .then(() => quizState);
+}
+
+export function startHelping(quizState) {
+  return r
+    .table('state')
+    .getAll(0, {index: 'slug'}).update(quizState).run()
+    .then(() => quizState);
+}
+
 
 export function addEvent(event) {
   event.created = new Date();
@@ -68,7 +112,7 @@ export function addEvent(event) {
   event.slug = slug(event.title);
 
   return r
-    .table('pulses')
+    .table('quizes')
     .insert(event).run()
     .then(response => {
       return Object.assign({}, event, {id: response.generated_keys[0]});
@@ -80,7 +124,7 @@ export function addEvent(event) {
   //   event.description = xss(event.description);
   //   event.slug = slug(event.title);
   //   return r
-  //   .table('pulses')
+  //   .table('quizes')
   //   .insert(event).run(conn)
   //   .then(response => {
   //     return Object.assign({}, event, {id: response.generated_keys[0]});
@@ -93,14 +137,14 @@ export function editEvent(id, event) {
   event.description = xss(event.description);
   event.slug = slug(event.title);
   return r
-    .table('pulses')
+    .table('quizes')
     .get(id).update(event).run()
     .then(() => event);
 
   // return connect()
   // .then(conn => {
   //   return r
-  //   .table('pulses')
+  //   .table('quizes')
   //   .get(id).update(event).run(conn)
   //   .then(() => event);
   // });
@@ -108,14 +152,14 @@ export function editEvent(id, event) {
 
 export function deleteEvent(id) {
   return r
-    .table('pulses')
+    .table('quizes')
     .get(id).delete().run()
     .then(() => ({id: id, deleted: true}));
 
   // return connect()
   // .then(conn => {
   //   return r
-  //   .table('pulses')
+  //   .table('quizes')
   //   .get(id).delete().run(conn)
   //   .then(() => ({id: id, deleted: true}));
   // });
@@ -123,13 +167,13 @@ export function deleteEvent(id) {
 
 export function getEvent(slug) {
   return r
-    .table('pulses')
+    .table('quizes')
     .getAll(slug, {index: 'slug'}).run()
 
   // return connect()
   // .then(conn => {
   //   return r
-  //   .table('pulses')
+  //   .table('quizes')
   //   .getAll(slug, {index: 'slug'}).run(conn)
   //   .then(cursor => cursor.toArray());
   // });

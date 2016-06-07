@@ -2,10 +2,10 @@
   "rethinkdb": {
     "host": "localhost",
     "port": 28015,
-    "db": "pulse"
+    "db": "megafon"
   },
   "express": {
-    "host": "192.168.0.100",
+    "host": "192.168.0.101",
     "port": 3000
   },
   "buildDirectory": "build"

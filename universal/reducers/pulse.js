@@ -4,7 +4,8 @@ import {
   UPLOAD_IMAGE_REQUEST, UPLOAD_IMAGE_SUCCESS, UPLOAD_IMAGE_FAILURE,
   DELETE_EVENT_REQUEST, DELETE_EVENT_SUCCESS, DELETE_EVENT_FAILURE,
   EDIT_EVENT_REQUEST, EDIT_EVENT_SUCCESS, EDIT_EVENT_FAILURE,
-  GET_LOGIN, SUBMIT_LOGIN, ADD_IMAGES_TO_STORE, REMOVE_IMAGES_FROM_STORE
+  GET_LOGIN, SUBMIT_LOGIN, ADD_IMAGES_TO_STORE, REMOVE_IMAGES_FROM_STORE, ANSWER_QUESTION,
+  START_ANSWERING, START_ANSWERING_SUCCESS, START_HELPING, START_HELPING_SUCCESS, INIT_STATE_SUCCESS
 } from '../constants/ActionTypes';
 import {UPDATE_LOCATION} from 'redux-simple-router';
 
@@ -14,7 +15,8 @@ const initialState = {
   isLoggedIn: false,
   error: null,
   images: [],
-  events: []
+  events: [],
+  quizState: {}
 };
 
 export default function pulses(state = initialState, action) {
@@ -27,6 +29,35 @@ export default function pulses(state = initialState, action) {
     case UPDATE_LOCATION:
       return Object.assign({}, state, {
         images: []
+      });
+
+    case START_ANSWERING_SUCCESS:
+      return Object.assign({}, state, {
+        quizState: action.quizState
+      });
+
+    case START_HELPING_SUCCESS:
+      return Object.assign({}, state, {
+        quizState: action.quizState
+      });
+
+    case INIT_STATE_SUCCESS:
+      return Object.assign({}, state, {
+        quizState: action.quizState[0]
+      });
+
+    case ANSWER_QUESTION:
+      return Object.assign({}, state, {
+        isAnswering: true
+      });
+
+    case ANSWER_QUESTION:
+      let answeredQuestions = state.answeredQuestions;
+      answeredQuestions = [action.answeredQuestion, ...state.answeredQuestions];
+
+      return Object.assign({}, state, {
+        isAnswering: true,
+        answeredQuestions: answeredQuestions
       });
 
     case SUBMIT_LOGIN:

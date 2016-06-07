@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Home from '../components/HomePage';
+import MegafonQuizPlazmaPage from '../components/MegafonQuizPlazmaPage';
+import MegafonQuizTabletPage from '../components/MegafonQuizTabletPage';
 import NasedkinList from '../components/NasedkinList';
 import BadaninaList from '../components/BadaninaList';
 import AsyncBar from '../components/AsyncBar';
@@ -33,7 +34,8 @@ class PulseApp extends Component {
     return (
       <div className="portfolio-container">
         <AsyncBar isWorking={this.props.isWorking} error={this.props.error} />
-        {this.props.home}
+        {this.props.megafonQuiz}
+        {this.props.megafonQuizTablet}
         {this.props.nasedkin}
         {this.props.badanina}
         {this.props.login}

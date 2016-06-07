@@ -1,2 +1,10 @@
 node_modules
 rethinkdb_data
+
+npm-debug.log
+
+*.jpg
+
+public/images/
+
+.env

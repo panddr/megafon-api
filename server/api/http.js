@@ -7,6 +7,42 @@ require('dotenv').config();
 import size from 's3-image-size';
 var AWS = require('aws-sdk');
 
+export function initState(req, res) {
+  service.initState()
+  .then((quizState) => res.json(quizState))
+  .catch(err => {
+    res.status(400);
+    res.json({error: err});
+  });
+}
+
+// export function loadState(req, res) {
+//   service.loadState()
+//   .then((quizState) => res.json(quizState))
+//   .catch(err => {
+//     res.status(400);
+//     res.json({error: err});
+//   });
+// }
+
+export function startAnswering(req, res) {
+  service.startAnswering(req.body)
+  .then((quizState) => res.json(quizState))
+  .catch(err => {
+    res.status(400);
+    res.json({error: err, quizState: req.body});
+  });
+}
+
+export function startHelping(req, res) {
+  service.startHelping(req.body)
+  .then((quizState) => res.json(quizState))
+  .catch(err => {
+    res.status(400);
+    res.json({error: err, quizState: req.body});
+  });
+}
+
 export function getEvents(req, res) {
   service.getEvents()
   .then((events) => res.json(events))
